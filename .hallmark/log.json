@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-08-25",
+    "macrostructure": "Marquee Hero",
+    "theme": "Midnight",
+    "enrichment": "Tier A procedural starfield",
+    "brief": "Full-viewport restrained technical arcade UI based on the ViteConf game reference"
+  },
+  {
+    "date": "2026-08-25",
+    "macrostructure": "Arcade Cabinet",
+    "theme": "Hum",
+    "enrichment": "Tier A pixel craft",
+    "brief": "Playable mouse-driven pixel arcade with start and pause states"
+  }
+]

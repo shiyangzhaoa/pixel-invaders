@@ -1,0 +1,8 @@
+{
+  "date": "2026-08-25",
+  "font": "system display plus SF Mono",
+  "palette": "dark space, cyan, yellow, pink",
+  "motion": "CSS transitions only",
+  "spacing": "4px token scale",
+  "framework": "Solid 2 with native Canvas"
+}
