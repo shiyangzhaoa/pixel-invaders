@@ -60,8 +60,10 @@ export interface GameState {
 export interface InputState {
   left: boolean
   right: boolean
-  shoot: boolean
+  up: boolean
+  down: boolean
   pointerX?: number
+  pointerY?: number
 }
 
 export interface Hud {
@@ -138,14 +140,19 @@ export function createWave(wave: number, width = 960): Enemy[] {
 
 export function resizeGameState(state: GameState, width: number, height: number): void {
   const previousWidth = state.world.x
-  const ratio = width / previousWidth
+  const previousHeight = state.world.y
+  const ratioX = width / previousWidth
+  const ratioY = height / previousHeight
   state.world = { x: width, y: height }
-  state.player.x = Math.min(width - 32, Math.max(32, state.player.x * ratio))
-  state.player.y = height * 0.78
+  state.player.x = Math.min(width - 32, Math.max(32, state.player.x * ratioX))
+  state.player.y =
+    state.status === "ready"
+      ? height * 0.78
+      : Math.min(height - 32, Math.max(108, state.player.y * ratioY))
   for (const enemy of state.enemies) {
-    enemy.origin.x *= ratio
-    enemy.x *= ratio
-    enemy.diveFrom.x *= ratio
-    enemy.diveTargetX *= ratio
+    enemy.origin.x *= ratioX
+    enemy.x *= ratioX
+    enemy.diveFrom.x *= ratioX
+    enemy.diveTargetX *= ratioX
   }
 }

@@ -1,7 +1,7 @@
 import type { Enemy, GameState, InputState, Particle, Vector } from "./model.ts"
 import { createWave } from "./model.ts"
 
-const playerSpeed = 340
+const playerSpeed = 410
 const bulletSpeed = 560
 const fireInterval = 0.145
 
@@ -24,24 +24,49 @@ export function updateGame(state: GameState, input: InputState, delta: number): 
 }
 
 function updatePlayer(state: GameState, input: InputState, delta: number): void {
-  const direction = Number(input.right) - Number(input.left)
-  if (direction !== 0) {
-    state.player.x = clamp(state.player.x + direction * playerSpeed * delta, 28, state.world.x - 28)
+  const directionX = Number(input.right) - Number(input.left)
+  const directionY = Number(input.down) - Number(input.up)
+  if (directionX !== 0 || directionY !== 0) {
+    const magnitude = Math.max(1, Math.hypot(directionX, directionY))
+    state.player.x = clamp(
+      state.player.x + (directionX / magnitude) * playerSpeed * delta,
+      28,
+      state.world.x - 28,
+    )
+    state.player.y = clamp(
+      state.player.y + (directionY / magnitude) * playerSpeed * delta,
+      108,
+      state.world.y - 28,
+    )
     input.pointerX = undefined
-  } else if (input.pointerX !== undefined) {
-    const target = clamp(input.pointerX, 32, state.world.x - 32)
-    const distance = target - state.player.x
-    if (Math.abs(distance) < 3) state.player.x = target
-    else {
-      const trackingSpeed = Math.min(760, Math.max(220, Math.abs(distance) * 9))
-      const movement = Math.sign(distance) * trackingSpeed * delta
-      state.player.x += Math.abs(movement) >= Math.abs(distance) ? distance : movement
-      state.player.x = clamp(state.player.x, 32, state.world.x - 32)
+    input.pointerY = undefined
+  } else if (input.pointerX !== undefined && input.pointerY !== undefined) {
+    const targetX = clamp(input.pointerX, 32, state.world.x - 32)
+    const targetY = clamp(input.pointerY, 108, state.world.y - 32)
+    const distanceX = targetX - state.player.x
+    const distanceY = targetY - state.player.y
+    const distance = Math.hypot(distanceX, distanceY)
+    if (distance < 3) {
+      state.player.x = targetX
+      state.player.y = targetY
+    } else {
+      const trackingSpeed = Math.min(760, Math.max(220, distance * 9))
+      const movement = Math.min(distance, trackingSpeed * delta)
+      state.player.x = clamp(
+        state.player.x + (distanceX / distance) * movement,
+        32,
+        state.world.x - 32,
+      )
+      state.player.y = clamp(
+        state.player.y + (distanceY / distance) * movement,
+        108,
+        state.world.y - 32,
+      )
     }
   }
 
   state.cooldown = Math.max(0, state.cooldown - delta)
-  if (input.shoot && state.cooldown === 0) {
+  if (state.cooldown === 0) {
     state.bullets.push({
       x: state.player.x,
       y: state.player.y - 24,

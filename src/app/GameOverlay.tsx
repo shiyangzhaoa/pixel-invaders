@@ -3,7 +3,7 @@ import type { GameStatus } from "../game/model.ts"
 const overlayCopy = {
   ready: {
     title: "READY?",
-    detail: "Move to steer. Click or press Space to fire.",
+    detail: "Move to steer. Weapons fire automatically.",
     action: "START GAME",
   },
   paused: { title: "PAUSED", detail: "The fleet is holding position.", action: "RESUME" },

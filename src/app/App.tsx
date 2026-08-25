@@ -39,7 +39,7 @@ export default function App() {
             ref={(element) => {
               canvas = element
             }}
-            aria-label="Game canvas. Move the pointer to steer the ship."
+            aria-label="Game canvas. Move the pointer or use the keyboard to steer the ship. Weapons fire automatically."
           />
           <GameOverlay
             status={hud().status}
@@ -55,8 +55,7 @@ export default function App() {
               data-running={hud().status === "playing"}
               aria-hidden="true"
             />
-            {hud().status.toUpperCase()} · POINTER / A D TO MOVE · CLICK / SPACE TO FIRE · ESC TO
-            PAUSE
+            {hud().status.toUpperCase()} · POINTER / WASD TO MOVE · AUTO FIRE · ESC TO PAUSE
           </p>
           <div class="control-actions">
             <button

@@ -9,15 +9,23 @@ export interface KeyboardControlOptions {
 export function bindKeyboardControl(options: KeyboardControlOptions): ControlSource {
   let left = false
   let right = false
+  let up = false
+  let down = false
 
   const handleKey = (event: KeyboardEvent, pressed: boolean) => {
-    if (["ArrowLeft", "ArrowRight", "Space"].includes(event.code)) event.preventDefault()
+    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.code))
+      event.preventDefault()
 
     if (event.code === "ArrowLeft" || event.code === "KeyA") left = pressed
     if (event.code === "ArrowRight" || event.code === "KeyD") right = pressed
-    if (event.code === "Space") options.dispatch({ shoot: pressed })
-    if (["ArrowLeft", "ArrowRight", "KeyA", "KeyD"].includes(event.code)) {
-      options.dispatch({ left, right, pointerX: undefined })
+    if (event.code === "ArrowUp" || event.code === "KeyW") up = pressed
+    if (event.code === "ArrowDown" || event.code === "KeyS") down = pressed
+    if (
+      ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "KeyA", "KeyD", "KeyW", "KeyS"].includes(
+        event.code,
+      )
+    ) {
+      options.dispatch({ left, right, up, down, pointerX: undefined, pointerY: undefined })
     }
     if (pressed && event.code === "Escape") options.onPause()
   }
@@ -31,7 +39,16 @@ export function bindKeyboardControl(options: KeyboardControlOptions): ControlSou
     reset: () => {
       left = false
       right = false
-      options.dispatch({ left: false, right: false, shoot: false, pointerX: undefined })
+      up = false
+      down = false
+      options.dispatch({
+        left: false,
+        right: false,
+        up: false,
+        down: false,
+        pointerX: undefined,
+        pointerY: undefined,
+      })
     },
     dispose: () => {
       options.target.removeEventListener("keydown", keydown)

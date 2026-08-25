@@ -16,9 +16,9 @@ Vite prints the development URL. Run `pnpm dev -- --port 5176` to use a fixed po
 
 ## Controls
 
-- Move the pointer or drag: smoothly steer toward the target
-- `A` / `D` or arrow keys: keyboard movement with control priority
-- Click, touch, or `Space`: fire
+- Move the pointer or drag: smoothly steer toward the target anywhere on the playfield
+- `WASD` or arrow keys: four-direction keyboard movement with control priority
+- Weapons fire automatically while playing
 - `Escape`: pause or resume
 - Hiding or blurring the page automatically pauses and clears active input
 

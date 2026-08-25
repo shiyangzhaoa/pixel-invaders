@@ -8,11 +8,11 @@ export interface InputBinding {
 }
 
 export function bindInput(canvas: HTMLCanvasElement, onTogglePause: () => void): InputBinding {
-  const state: InputState = { left: false, right: false, shoot: false }
+  const state: InputState = { left: false, right: false, up: false, down: false }
   const dispatch = (patch: Partial<InputState>) => Object.assign(state, patch)
   const sources: ControlSource[] = [
     bindKeyboardControl({ target: window, dispatch, onPause: onTogglePause }),
-    bindPointerControl({ canvas, releaseTarget: window, dispatch }),
+    bindPointerControl({ canvas, dispatch }),
   ]
 
   return {
