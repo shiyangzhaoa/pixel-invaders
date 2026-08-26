@@ -4,6 +4,8 @@ An experiment in browser-game architecture. Native Canvas owns the hot path, Sol
 
 [Play the latest build](https://shiyangzhaoa.github.io/pixel-invaders/)
 
+![Pixel Invaders gameplay](docs/assets/gameplay.jpg)
+
 ## Development
 
 ```bash
