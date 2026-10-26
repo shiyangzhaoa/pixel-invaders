@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@solidjs/web": "2.0.0-rc.2",
-    "effect": "3.22.1",
+    "effect": "4.0.6",
     "solid-js": "2.0.0-rc.2"
   },
   "devDependencies": {
