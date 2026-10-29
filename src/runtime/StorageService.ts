@@ -7,10 +7,9 @@ export interface StorageServiceShape {
   saveBestScore: (score: number) => Effect.Effect<void>
 }
 
-export class StorageService extends Context.Tag("pixel-invaders/StorageService")<
-  StorageService,
-  StorageServiceShape
->() {}
+export class StorageService extends Context.Service<StorageService, StorageServiceShape>()(
+  "pixel-invaders/StorageService",
+) {}
 
 export const StorageServiceLive = Layer.succeed(StorageService, {
   loadBestScore: Effect.sync(

@@ -15,10 +15,9 @@ export interface AudioServiceShape {
   play: (cue: AudioCue) => Effect.Effect<void>
 }
 
-export class AudioService extends Context.Tag("pixel-invaders/AudioService")<
-  AudioService,
-  AudioServiceShape
->() {}
+export class AudioService extends Context.Service<AudioService, AudioServiceShape>()(
+  "pixel-invaders/AudioService",
+) {}
 
 const frequencies: Record<AudioCue, number> = {
   start: 660,
